@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://example.com/CalculatorService/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    targetNamespace="http://example.com/CalculatorService/"
+>
+    <message name="SumarRequest">
+        <part name="num1" type="xsd:double"/>
+        <part name="num2" type="xsd:double"/>
+    </message>
+    <message name="SumarResponse">
+        <part name="resultado" type="xsd:double"/>
+    </message>
+    <portType name="CalculatorPortType">
+        <operation name="Sumar">
+            <input message="tns:SumarRequest"/>
+            <output message="tns:SumarResponse"/>
+        </operation>
+    </portType>
+    <binding name="CalculatorBinding" type="tns:CalculatorPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="Sumar">
+            <soap:operation soapAction="http://example.com/CalculatorService/Sumar"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="CalculatorService">
+        <port name="CalculatorPort" binding="tns:CalculatorBinding">
+            <soap:address location="http://localhost:5000/soap"/>
+        </port>
+    </service>
+</definitions>
