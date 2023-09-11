@@ -1,12 +1,12 @@
 const myService = {
   CalculatorService: {
     CalculatorPort: {
-      Sumar: function (args: any) {
+      Sumar: (args: any) => {
 
         console.log({ args });
 
-        const num1 = parseFloat(args.num1);
-        const num2 = parseFloat(args.num2);
+        const num1 = parseFloat(args.num1['$value']);
+        const num2 = parseFloat(args.num2['$value']);
 
         if (isNaN(num1) || isNaN(num2)) {
           throw new Error(

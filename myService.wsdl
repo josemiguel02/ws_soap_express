@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<definitions
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:tns="http://example.com/CalculatorService/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns="http://schemas.xmlsoap.org/wsdl/"
-    targetNamespace="http://example.com/CalculatorService/"
+<definitions name="CalculatorService"
+             targetNamespace="http://www.examples.com/wsdl/CalculatorService.wsdl"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://www.examples.com/wsdl/CalculatorService.wsdl"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 >
     <message name="SumarRequest">
         <part name="num1" type="xsd:double"/>
@@ -20,20 +19,29 @@
         </operation>
     </portType>
     <binding name="CalculatorBinding" type="tns:CalculatorPortType">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="Sumar">
-            <soap:operation soapAction="http://example.com/CalculatorService/Sumar"/>
+            <soap:operation soapAction="Sumar"/>
             <input>
-                <soap:body use="literal"/>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="urn:examples:CalculatorService"
+                    use="encoded"
+                />
             </input>
             <output>
-                <soap:body use="literal"/>
+                <soap:body
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="urn:examples:CalculatorService"
+                    use="encoded"
+                />
             </output>
         </operation>
     </binding>
     <service name="CalculatorService">
-        <port name="CalculatorPort" binding="tns:CalculatorBinding">
-            <soap:address location="http://localhost:5000/soap"/>
+        <documentation>WSDL File for CalculatorService</documentation>
+        <port binding="tns:CalculatorBinding" name="CalculatorPort">
+            <soap:address location="http://localhost:5000/soap" />
         </port>
     </service>
 </definitions>

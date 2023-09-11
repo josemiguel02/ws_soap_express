@@ -15,16 +15,16 @@ const wsdlPath = path.join(process.cwd(), 'myService.wsdl');
 const wsdlFile = fs.readFileSync(wsdlPath, 'utf8');
 
 const soapOptions = {
-  path: '/soap-srv',
+  path: '/soap',
   services: SoapServices,
   wsdl: wsdlFile,
 };
 
 app.use('/products', ProductsRoutes);
-// app.use('/soap-srv', SoapServer(soapOptions));
+app.use('/soap', SoapServer(soapOptions));
 
-soap.listen(app, '/soap', SoapServices, wsdlFile, err => {
-  if (err) throw err;
-});
+// soap.listen(app, '/soap', SoapServices, wsdlFile, err => {
+//   if (err) throw err;
+// });
 
 export default app;
